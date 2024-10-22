@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "ARKANOID.sln"
+    "dotnet.defaultSolution": "ARKANOID_Didac_Perez_Marquez.sln"
 }

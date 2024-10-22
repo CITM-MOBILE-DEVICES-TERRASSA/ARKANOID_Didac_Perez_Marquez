@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Restart : MonoBehaviour
+public class SceneChanger : MonoBehaviour
 {
     // Method to change to another scene
     public void ChangeScene(string sceneName)

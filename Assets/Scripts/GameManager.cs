@@ -1,10 +1,20 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public GameHUD gameHUD; // Referencia al script del HUD
+    private BlockGridGenerator blockGridGenerator;
     private int currentScore = 0; // Puntaje actual del jugador
     private int highScore = 0; // M�xima puntuaci�n
+    public int totalBricks; // Tracks the total number of bricks
+    public string nextScene;
+
+    // Method to set the total number of bricks at the start
+    public void SetTotalBricks(int count)
+    {
+        totalBricks = count;
+    }
 
     private void Start()
     {
@@ -15,6 +25,10 @@ public class GameManager : MonoBehaviour
         // Cargar la puntuaci�n m�xima guardada previamente
         highScore = PlayerPrefs.GetInt("HighScore", 0);
         gameHUD.UpdateHighScore(highScore);
+
+        blockGridGenerator = FindObjectOfType<BlockGridGenerator>(); 
+        newGame();
+        
     }
 
     // M�todo que se llama cada vez que se destruye un bloque
@@ -28,6 +42,12 @@ public class GameManager : MonoBehaviour
 
         // Chequear si se ha alcanzado una nueva m�xima puntuaci�n
         CheckForHighScore();
+
+        if (totalBricks <= 0)
+        {
+            // All bricks are destroyed, load the next scene
+            SceneManager.LoadScene(nextScene);
+        }
     }
 
     // M�todo que se llama cuando el jugador pierde una vida
@@ -35,7 +55,6 @@ public class GameManager : MonoBehaviour
     {
         gameHUD.UpdateLives(lives);
 
-        // Puedes verificar si las vidas llegan a 0 aqu� y manejar el Game Over
     }
 
     // Verifica si el puntaje actual es mayor que la m�xima puntuaci�n guardada
@@ -53,5 +72,9 @@ public class GameManager : MonoBehaviour
             PlayerPrefs.SetInt("HighScore", highScore);
             PlayerPrefs.Save();
         }
+    }
+
+    public void newGame(){
+        blockGridGenerator.GenerateBlockGrid();
     }
 }

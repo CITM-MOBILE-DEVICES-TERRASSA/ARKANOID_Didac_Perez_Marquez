@@ -101,7 +101,7 @@ MonoBehaviour:
   health: 0
   gameManager: {fileID: 0}
   pickupPrefab: {fileID: 5450340332431188517, guid: b465caa0d0be1da4ba6175bc9122afa7, type: 3}
-  pickupSpawnChance: 0.4
+  pickupSpawnChance: 0.3
 --- !u!61 &-4558149323117279064
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -23,15 +23,23 @@ public class Ball : MonoBehaviour
         }
 
         rb = GetComponent<Rigidbody2D>(); // Obtener el componente Rigidbody2D
-        LaunchBall(); // Lanzar la pelota al inicio del juego
+        Invoke("LaunchBall", 1f);
     }
 
     private void LaunchBall()
-    {
-        // Aplicar la velocidad inicial en la dirección especificada
-        initialDirection=new Vector2(Random.Range(-1,1), -1).normalized;
-        rb.velocity = initialDirection * speed;
-    }
+{
+    // Generate a random angle between -30 and 30 degrees
+    float randomAngle = Random.Range(-30f, 30f);
+    
+    // Convert the angle to radians
+    float angleInRadians = randomAngle * Mathf.Deg2Rad;
+
+    // Calculate the direction based on the angle
+    Vector2 initialDirection = new Vector2(Mathf.Sin(angleInRadians), -Mathf.Cos(angleInRadians)).normalized;
+
+    // Apply the initial velocity in the calculated direction
+    rb.velocity = initialDirection * speed; // Set the ball's velocity
+}
 
     private void ResetBall()
     {
