@@ -18,11 +18,11 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        // Inicializar el HUD con puntaje 0 y vidas iniciales (por ejemplo, 3 vidas)
+        // Load the previous score (default is 0 if no score is saved)
+        currentScore = PlayerPrefs.GetInt("CurrentScore", 0);
         gameHUD.UpdateScore(currentScore);
-        gameHUD.UpdateLives(0);
 
-        // Cargar la puntuaci�n m�xima guardada previamente
+        // Load the high score
         highScore = PlayerPrefs.GetInt("HighScore", 0);
         gameHUD.UpdateHighScore(highScore);
 
@@ -39,6 +39,10 @@ public class GameManager : MonoBehaviour
 
         // Actualizar el HUD con el nuevo puntaje
         gameHUD.UpdateScore(currentScore);
+
+        // Save the current score to PlayerPrefs
+        PlayerPrefs.SetInt("CurrentScore", currentScore);
+        PlayerPrefs.Save();
 
         // Chequear si se ha alcanzado una nueva m�xima puntuaci�n
         CheckForHighScore();
@@ -75,6 +79,7 @@ public class GameManager : MonoBehaviour
     }
 
     public void newGame(){
+        currentScore = 0;
         blockGridGenerator.GenerateBlockGrid();
     }
 }
