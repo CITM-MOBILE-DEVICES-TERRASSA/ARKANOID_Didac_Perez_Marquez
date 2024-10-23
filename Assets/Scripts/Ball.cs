@@ -59,12 +59,12 @@ public class Ball : MonoBehaviour
             ResetBall();
         }
     }
-    private void OnCollisionEnter2D(Collision2D collision)
+   private void OnCollisionEnter2D(Collision2D collision)
     {
         // Incrementar la velocidad después de un impacto, si es menor al límite máximo
         if (collision.gameObject.CompareTag("Paddle"))
         {
-            if(speed < maxSpeed)
+            if (speed < maxSpeed)
             {
                 speed *= speedIncreaseFactor; // Aumentar la velocidad
 
@@ -74,14 +74,42 @@ public class Ball : MonoBehaviour
                 // Aplicar la nueva velocidad sin alterar la dirección
                 rb.velocity = currentDirection * speed;
             }
-            
+
             AudioManager.instance.PlaySound("ballHitsPaddle");
         }
-        else if(collision.gameObject.CompareTag("Brick")){
+        else if (collision.gameObject.CompareTag("Brick"))
+        {
             AudioManager.instance.PlaySound("ballHitsBrick");
         }
-        else{
+        else
+        {
             AudioManager.instance.PlaySound("ballHitsBarrier");
         }
+
+        // Fix to prevent ball from getting stuck on X or Y axis
+        CorrectBallDirection();
+    }
+
+    private void CorrectBallDirection()
+    {
+        // Minimum value for velocity components to avoid perfect horizontal/vertical movement
+        float minVelocity = 0.2f;
+
+        Vector2 velocity = rb.velocity;
+
+        // Check if the X or Y velocity is too small, meaning it's close to being stuck on that axis
+        if (Mathf.Abs(velocity.x) < minVelocity)
+        {
+            // Adjust the X component slightly to ensure the ball doesn't move perfectly vertically
+            velocity.x = Mathf.Sign(velocity.x) * minVelocity;
+        }
+        if (Mathf.Abs(velocity.y) < minVelocity)
+        {
+            // Adjust the Y component slightly to ensure the ball doesn't move perfectly horizontally
+            velocity.y = Mathf.Sign(velocity.y) * minVelocity;
+        }
+
+        // Apply the corrected velocity back to the ball
+        rb.velocity = velocity;
     }
 }
