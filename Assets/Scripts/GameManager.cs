@@ -80,6 +80,7 @@ public class GameManager : MonoBehaviour
 
     public void newGame(){
         currentScore = 0;
+        gameHUD.UpdateScore(currentScore);
         blockGridGenerator.GenerateBlockGrid();
     }
 }
