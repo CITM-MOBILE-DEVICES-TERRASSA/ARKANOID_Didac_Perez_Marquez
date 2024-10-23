@@ -1,8 +1,20 @@
 using UnityEngine;
 using UnityEditor;
+using System.Collections;
+using System.Collections.Generic;
 
 public class BlockGridGenerator : MonoBehaviour
 {
+
+    [System.Serializable]
+    public class BlockListWrapper
+    {
+        public List<BlockData> blocks;
+    }
+
+    // Singleton instance
+    public static BlockGridGenerator Instance { get; private set; }
+
     [Header("Configuración de la cuadrícula")]
     public GameObject blockPrefab; // Prefab del bloque
     public float blockSpacing = 0.2f; // Espacio entre bloques
@@ -14,9 +26,16 @@ public class BlockGridGenerator : MonoBehaviour
     public Color baseColor = Color.blue; // Color base seleccionable desde el Inspector
     public Color gizmoColor = Color.green; // Color del gizmo en la escena
 
-    private void Start()
+    private void Awake()
     {
-        
+        // Singleton pattern: Ensure only one instance of BlockGridGenerator exists
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject); // Destroy duplicate instances
+            return;
+        }
+
+        Instance = this;
     }
 
     public void GenerateBlockGrid()
@@ -27,7 +46,7 @@ public class BlockGridGenerator : MonoBehaviour
         int numberOfRows = Mathf.FloorToInt((areaSize.y + blockSpacing) / (blockSize.y + blockSpacing));
 
         int totalBricks = numberOfColumns * numberOfRows;
-        FindObjectOfType<GameManager>().SetTotalBricks(totalBricks);
+        Manager.Instance.SetTotalBricks(totalBricks);
 
         float totalBlockWidth = (numberOfColumns * blockSize.x) + ((numberOfColumns - 1) * blockSpacing);
         float totalBlockHeight = (numberOfRows * blockSize.y) + ((numberOfRows - 1) * blockSpacing);
@@ -79,13 +98,66 @@ public class BlockGridGenerator : MonoBehaviour
         return Color.HSVToRGB(hue, saturation, value);
     }
 
-    // OnDrawGizmos will draw the area in the Scene view
+    public void SaveBlockData()
+    {
+        // Create a list to store data for all blocks that are still alive
+        List<BlockData> blockDataList = new List<BlockData>();
+
+        // Iterate over each child block (only existing blocks)
+        foreach (Transform child in transform)
+        {
+            // Get the Brick component from the block
+            Brick brick = child.GetComponent<Brick>();
+            
+            // If the block exists and is still alive, save its data
+            if (brick != null && brick.health > 0) // Only save blocks that still have health
+            {
+                // Gather the block's position, type, and color
+                Vector3 position = child.position;
+                bool isHard = brick.health > 1; // If the health is more than 1, it's a hard brick
+                Color color = child.GetComponent<Renderer>().material.color;
+
+                // Add this block's data to the list
+                blockDataList.Add(new BlockData(position, isHard, color));
+            }
+        }
+
+        // Convert the block data list to JSON format
+        string json = JsonUtility.ToJson(new BlockListWrapper { blocks = blockDataList });
+
+        // Save the JSON string to PlayerPrefs (or a file if needed)
+        PlayerPrefs.SetString("SavedBlocks", json);
+        PlayerPrefs.Save();
+    }
+
+    public void LoadBlockData()
+    {
+        // Check if there is saved block data
+        if (PlayerPrefs.HasKey("SavedBlocks"))
+        {
+            // Get the saved block data from PlayerPrefs
+            string json = PlayerPrefs.GetString("SavedBlocks");
+
+            // Convert the JSON string back into a list of block data
+            BlockListWrapper blockListWrapper = JsonUtility.FromJson<BlockListWrapper>(json);
+            List<BlockData> blockDataList = blockListWrapper.blocks;
+
+            // Clear any existing blocks in the scene
+            ClearExistingBlocks();
+
+            // Instantiate each saved block in the scene
+            foreach (BlockData data in blockDataList)
+            {
+                // Create a block using the saved data
+                GameObject block = BrickFactory.CreateBrick(blockPrefab, data.position, blockSize, data.isHardBrick, transform);
+                block.GetComponent<Renderer>().material.color = data.color;
+            }
+        }
+    }
+
     private void OnDrawGizmos()
     {
-        // Set the Gizmo color
         Gizmos.color = gizmoColor;
-
-        // Draw a wireframe cube representing the areaSize
         Gizmos.DrawWireCube(transform.position, new Vector3(areaSize.x, areaSize.y, 1f));
     }
 

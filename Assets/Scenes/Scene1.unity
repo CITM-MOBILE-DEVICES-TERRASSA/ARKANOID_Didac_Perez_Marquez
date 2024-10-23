@@ -158,7 +158,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 109.95002, y: -157.06003}
+  m_AnchoredPosition: {x: 109.95001, y: -157.06006}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &219265902
@@ -205,7 +205,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8288306596283198731}
+      - m_Target: {fileID: 1314149881}
         m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
         m_MethodName: PauseGame
         m_Mode: 1
@@ -1074,7 +1074,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8288306596283198731}
+      - m_Target: {fileID: 1314149881}
         m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
         m_MethodName: ResumeGame
         m_Mode: 1
@@ -1151,7 +1151,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -20, y: -101, z: -22788}
-  m_LocalScale: {x: 2952.312, y: 2952.312, z: 2952.312}
+  m_LocalScale: {x: 4256.939, y: 4256.939, z: 4256.939}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 812400123}
@@ -1208,6 +1208,51 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1314149879
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1314149882}
+  - component: {fileID: 1314149881}
+  m_Layer: 0
+  m_Name: ButtonManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1314149881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1314149879}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cd9d74ac6f116d4a9a9da7079cbad10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pauseMenu: {fileID: 812400122}
+--- !u!4 &1314149882
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1314149879}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.42306, y: -3.5084584, z: 5.729967}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1369262315
 GameObject:
   m_ObjectHideFlags: 0
@@ -1388,7 +1433,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1314149881}
         m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
         m_MethodName: QuitGame
         m_Mode: 1
@@ -1734,24 +1779,6 @@ MonoBehaviour:
   scoreText: {fileID: 7448093180285849978}
   livesText: {fileID: 6385625382820519130}
   highScoreText: {fileID: 4468990314031331837}
---- !u!1 &3387949230394653583
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8288306596283198730}
-  - component: {fileID: 7067431395151449650}
-  - component: {fileID: 8288306596283198731}
-  m_Layer: 0
-  m_Name: GameManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &3397311887797828415
 GameObject:
   m_ObjectHideFlags: 0
@@ -2437,21 +2464,6 @@ MonoBehaviour:
   m_FirstSelected: {fileID: 0}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
---- !u!114 &7067431395151449650
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3387949230394653583}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92db70e93638b9344a66038cb32c31e7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameHUD: {fileID: 3353406128350962085}
-  totalBricks: 0
-  nextScene: Scene2
 --- !u!61 &7297593346218174392
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2743,34 +2755,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &8288306596283198730
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3387949230394653583}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.54, z: 90}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8288306596283198731
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3387949230394653583}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7cd9d74ac6f116d4a9a9da7079cbad10, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pauseMenu: {fileID: 812400122}
 --- !u!114 &8345459673962132466
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2915,7 +2899,7 @@ MonoBehaviour:
   speedIncreaseFactor: 1.1
   maxSpeed: 5
   initialDirection: {x: 0, y: -0.8}
-  gameManager: {fileID: 0}
+  manager: {fileID: 0}
   player: {fileID: 6652122513786238050}
 --- !u!212 &9171649756709255053
 SpriteRenderer:
@@ -2973,7 +2957,6 @@ SpriteRenderer:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 8288306596283198730}
   - {fileID: 776676651237663190}
   - {fileID: 6759762936600994350}
   - {fileID: 8451330967658597071}
@@ -2983,3 +2966,4 @@ SceneRoots:
   - {fileID: 8255852881411829307}
   - {fileID: 670192302}
   - {fileID: 812400123}
+  - {fileID: 1314149882}

@@ -10,16 +10,16 @@ public class Ball : MonoBehaviour
     public float maxSpeed = 4f; // Límite de velocidad máximo
     public Vector2 initialDirection; // Dirección inicial de la pelota
     private Rigidbody2D rb; // Referencia al componente Rigidbody2D
-    public GameManager gameManager;
+    public Manager manager;
 
     public GameObject player;
 
     private void Start()
     {
 
-        if (gameManager == null)
+        if (manager == null)
         {
-            gameManager = FindObjectOfType<GameManager>(); // Encuentra GameManager en la escena
+            manager = FindObjectOfType<Manager>(); // Encuentra GameManager en la escena
         }
 
         rb = GetComponent<Rigidbody2D>(); // Obtener el componente Rigidbody2D
@@ -55,7 +55,7 @@ public class Ball : MonoBehaviour
         // Verificar si la pelota ha salido de los límites de juego
         if (transform.position.y<player.transform.position.y-6) // Suponiendo que -6 es fuera del área de juego
         {
-            gameManager.OnLifeLost(-1);
+            Manager.Instance.OnLifeLost(-1);
             ResetBall();
         }
     }

@@ -14,12 +14,10 @@ public class PickUp : MonoBehaviour
 
     public PickupType pickupType; // Type of the pickup
     public Ball ball;
-    public GameManager gameManager;
 
     // Start is called before the first frame update
     void Start()
     {
-        gameManager = FindObjectOfType<GameManager>();
         ball = FindObjectOfType<Ball>();
 
         // Randomly assign a pickup type
@@ -42,12 +40,12 @@ public class PickUp : MonoBehaviour
             {
                 case PickupType.ExtraLife:
                     // Implement logic to give the player an extra life
-                    gameManager.OnLifeLost(1);
+                    Manager.Instance.OnLifeLost(1);
                     Debug.Log("Extra life");
                     break;
                 case PickupType.ExtraPoints:
                     // Implement logic to give the player extra points
-                    gameManager.OnBlockDestroyed(30);
+                    Manager.Instance.OnBlockDestroyed(30);
                     Debug.Log("30 extra points");
                     break;
                 case PickupType.SpeedReduction:

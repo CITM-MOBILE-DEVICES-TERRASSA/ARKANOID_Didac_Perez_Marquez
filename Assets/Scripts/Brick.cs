@@ -5,7 +5,6 @@ public class Brick : MonoBehaviour
     [Header("Propiedades del ladrillo")]
     public int health; // Salud del ladrillo
     private int points; // Puntos otorgados al destruir el ladrillo
-    public GameManager gameManager;
     
     private BlockGridGenerator blockGridGenerator;
 
@@ -31,11 +30,7 @@ public class Brick : MonoBehaviour
 
     private void Start()
     {
-        if (gameManager == null)
-        {
-            gameManager = FindObjectOfType<GameManager>(); // Encuentra GameManager si no está asignado
-            blockGridGenerator = FindObjectOfType<BlockGridGenerator>(); // Encuentra GameManager si no está asignado
-        }
+        blockGridGenerator = FindObjectOfType<BlockGridGenerator>(); // Encuentra GameManager si no está asignado
     }
 
     // Método para que el ladrillo reciba daño
@@ -64,9 +59,9 @@ public class Brick : MonoBehaviour
 
         Destroy(gameObject); // Destruye el ladrillo
 
-        gameManager.totalBricks-=1;
+        Manager.Instance.totalBricks-=1;
 
-        gameManager.OnBlockDestroyed(points); // Notifica al GameManager que el bloque fue destruido
+        Manager.Instance.OnBlockDestroyed(points); // Notifica al GameManager que el bloque fue destruido
     }
 
     // Método para generar un power-up
