@@ -55,6 +55,8 @@ public class PickUp : MonoBehaviour
                     break;
             }
 
+            AudioManager.instance.PlaySound("powerUp");
+
             // Destroy the pickup after it has been collected
             Destroy(gameObject);
         }

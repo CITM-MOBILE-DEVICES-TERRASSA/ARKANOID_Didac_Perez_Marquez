@@ -62,15 +62,26 @@ public class Ball : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         // Incrementar la velocidad después de un impacto, si es menor al límite máximo
-        if (collision.gameObject.CompareTag("Paddle") && speed < maxSpeed)
+        if (collision.gameObject.CompareTag("Paddle"))
         {
-            speed *= speedIncreaseFactor; // Aumentar la velocidad
+            if(speed < maxSpeed)
+            {
+                speed *= speedIncreaseFactor; // Aumentar la velocidad
 
-            // Obtener la dirección actual de la pelota y normalizarla (para que solo afecte la magnitud de la velocidad)
-            Vector2 currentDirection = rb.velocity.normalized;
+                // Obtener la dirección actual de la pelota y normalizarla (para que solo afecte la magnitud de la velocidad)
+                Vector2 currentDirection = rb.velocity.normalized;
 
-            // Aplicar la nueva velocidad sin alterar la dirección
-            rb.velocity = currentDirection * speed;
+                // Aplicar la nueva velocidad sin alterar la dirección
+                rb.velocity = currentDirection * speed;
+            }
+            
+            AudioManager.instance.PlaySound("ballHitsPaddle");
+        }
+        else if(collision.gameObject.CompareTag("Brick")){
+            AudioManager.instance.PlaySound("ballHitsBrick");
+        }
+        else{
+            AudioManager.instance.PlaySound("ballHitsBarrier");
         }
     }
 }

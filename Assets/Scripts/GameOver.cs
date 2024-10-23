@@ -13,7 +13,7 @@ public class GameOver : MonoBehaviour
         if (Manager.Instance != null)
         {
             playButton.onClick.AddListener(() => Manager.Instance.NewGame());
-            SceneManager.LoadScene("MainMenu"); // Load a main menu or quit to menu
+            exitButton.onClick.AddListener(() => SceneManager.LoadScene("MainMenu")); // Load a main menu or quit to menu
 
         }
     }

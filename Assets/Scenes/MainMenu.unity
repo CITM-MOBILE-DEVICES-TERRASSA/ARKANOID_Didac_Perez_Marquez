@@ -256,6 +256,68 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 114172992}
   m_CullTransparentMesh: 1
+--- !u!1 &167702866
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 167702868}
+  - component: {fileID: 167702867}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &167702867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 167702866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e51a601ca9369514e9eeaf9f1137b04b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundEffects:
+  - soundName: menuSelect
+    clip: {fileID: 8300000, guid: 99c193256d8dc5c4bbcf184f0bef2186, type: 3}
+  - soundName: ballHitsPaddle
+    clip: {fileID: 8300000, guid: 79e74053c3ee59446a55986e77652204, type: 3}
+  - soundName: ballHitsBrick
+    clip: {fileID: 8300000, guid: ecc60a3a5b9f2334b921651a19bf8a86, type: 3}
+  - soundName: ballHitsBarrier
+    clip: {fileID: 8300000, guid: f7140d5ede89feb43b540bbf7383e0ae, type: 3}
+  - soundName: powerUp
+    clip: {fileID: 8300000, guid: 3e982b607e516014dbc1771a7b529847, type: 3}
+  - soundName: gameOver
+    clip: {fileID: 8300000, guid: 86ba63a74a0123546aeed794579bd61c, type: 3}
+  - soundName: levelCompleted
+    clip: {fileID: 8300000, guid: 1dea36daf34eea74580a28f51cd7f7ae, type: 3}
+  musicTracks:
+  - trackName: music
+    clip: {fileID: 8300000, guid: b48e2d5de5304574d9c624a86dd89a94, type: 3}
+--- !u!4 &167702868
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 167702866}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.7350466, y: -1.7308054, z: 230.40492}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &365196154
 GameObject:
   m_ObjectHideFlags: 0
@@ -1680,3 +1742,4 @@ SceneRoots:
   - {fileID: 6759762936600994350}
   - {fileID: 8255852881411829307}
   - {fileID: 1618158287}
+  - {fileID: 167702868}

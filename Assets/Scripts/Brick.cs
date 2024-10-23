@@ -72,6 +72,9 @@ public class Brick : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        TakeDamage();
+        if(collision.gameObject.CompareTag("Ball")){
+            TakeDamage();
+            AudioManager.instance.PlaySound("ballHitsBrick");
+        }
     }
 }

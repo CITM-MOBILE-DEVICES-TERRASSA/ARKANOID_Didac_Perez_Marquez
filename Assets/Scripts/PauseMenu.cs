@@ -51,6 +51,8 @@ public class PauseMenu : MonoBehaviour
         pauseMenu.gameObject.SetActive(true);  // Show the pause menu
         Time.timeScale = 0;         // Freeze time (pause)
         isPaused = true;            // Set the paused state
+        
+        AudioManager.instance.PlaySound("menuSelect");
     }
 
     // Method to resume the game
@@ -59,6 +61,8 @@ public class PauseMenu : MonoBehaviour
         pauseMenu.gameObject.SetActive(false); // Hide the pause menu
         Time.timeScale = 1;         // Resume time (unfreeze)
         isPaused = false;           // Set the paused state
+        
+        AudioManager.instance.PlaySound("menuSelect");
     }
 
 
@@ -68,5 +72,7 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 1; // Unpause the game
         Manager.Instance.SaveGame();
         SceneManager.LoadScene("MainMenu"); // Load a main menu or quit to menu
+        
+        AudioManager.instance.PlaySound("menuSelect");
     }
 }
