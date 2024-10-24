@@ -8,7 +8,6 @@ public class MainMenu : MonoBehaviour
 
     private void Start()
     {
-        // Dynamically find the Manager instance and hook up button actions
         if (Manager.Instance != null)
         {
             startGameButton.onClick.AddListener(() => Manager.Instance.NewGame());

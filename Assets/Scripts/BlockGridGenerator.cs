@@ -12,26 +12,24 @@ public class BlockGridGenerator : MonoBehaviour
         public List<BlockData> blocks;
     }
 
-    // Singleton instance
     public static BlockGridGenerator Instance { get; private set; }
 
     [Header("Configuración de la cuadrícula")]
-    public GameObject blockPrefab; // Prefab del bloque
-    public float blockSpacing = 0.2f; // Espacio entre bloques
-    public Vector2 areaSize = new Vector2(10, 5); // Tamaño del área (ancho, alto)
-    public Vector2 blockSize = new Vector2(1, 0.5f); // Tamaño de cada bloque (ancho, alto)
-    [Range(0f, 1f)] public float hardRowChance = 0.1f; // Probabilidad de que toda la fila sea de ladrillos duros
+    public GameObject blockPrefab;
+    public float blockSpacing = 0.2f;
+    public Vector2 areaSize = new Vector2(10, 5);
+    public Vector2 blockSize = new Vector2(1, 0.5f);
+    [Range(0f, 1f)] public float hardRowChance = 0.1f;
 
     [Header("Configuración de color")]
-    public Color baseColor = Color.blue; // Color base seleccionable desde el Inspector
-    public Color gizmoColor = Color.green; // Color del gizmo en la escena
+    public Color baseColor = Color.blue;
+    public Color gizmoColor = Color.green;
 
     private void Awake()
     {
-        // Singleton pattern: Ensure only one instance of BlockGridGenerator exists
         if (Instance != null && Instance != this)
         {
-            Destroy(gameObject); // Destroy duplicate instances
+            Destroy(gameObject);
             return;
         }
 
@@ -100,55 +98,41 @@ public class BlockGridGenerator : MonoBehaviour
 
     public void SaveBlockData()
     {
-        // Create a list to store data for all blocks that are still alive
         List<BlockData> blockDataList = new List<BlockData>();
 
-        // Iterate over each child block (only existing blocks)
         foreach (Transform child in transform)
         {
-            // Get the Brick component from the block
             Brick brick = child.GetComponent<Brick>();
             
-            // If the block exists and is still alive, save its data
-            if (brick != null && brick.health > 0) // Only save blocks that still have health
+            if (brick != null && brick.health > 0)
             {
-                // Gather the block's position, type, and color
                 Vector3 position = child.position;
-                bool isHard = brick.health > 1; // If the health is more than 1, it's a hard brick
+                bool isHard = brick.health > 1;
                 Color color = child.GetComponent<Renderer>().material.color;
 
-                // Add this block's data to the list
                 blockDataList.Add(new BlockData(position, isHard, color));
             }
         }
 
-        // Convert the block data list to JSON format
         string json = JsonUtility.ToJson(new BlockListWrapper { blocks = blockDataList });
 
-        // Save the JSON string to PlayerPrefs (or a file if needed)
         PlayerPrefs.SetString("SavedBlocks", json);
         PlayerPrefs.Save();
     }
 
     public void LoadBlockData()
     {
-        // Check if there is saved block data
         if (PlayerPrefs.HasKey("SavedBlocks"))
         {
-            // Get the saved block data from PlayerPrefs
             string json = PlayerPrefs.GetString("SavedBlocks");
 
-            // Convert the JSON string back into a list of block data
             BlockListWrapper blockListWrapper = JsonUtility.FromJson<BlockListWrapper>(json);
             List<BlockData> blockDataList = blockListWrapper.blocks;
 
-            // Clear any existing blocks in the scene
             ClearExistingBlocks();
 
-            // Instantiate each saved block in the scene
             foreach (BlockData data in blockDataList)
             {
-                // Create a block using the saved data
                 GameObject block = BrickFactory.CreateBrick(blockPrefab, data.position, blockSize, data.isHardBrick, transform);
                 block.GetComponent<Renderer>().material.color = data.color;
             }

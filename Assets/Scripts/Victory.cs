@@ -7,7 +7,6 @@ public class Victory : MonoBehaviour
 
     private void Start()
     {
-        // Dynamically find the Manager instance and hook up button actions
         if (Manager.Instance != null)
         {
             nextLevelButton.onClick.AddListener(() => Manager.Instance.nextLevel());
