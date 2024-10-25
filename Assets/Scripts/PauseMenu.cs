@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class PauseMenu : MonoBehaviour
 {
     public static PauseMenu Instance { get; private set; }
-    public Canvas pauseMenu;
+    public GameObject pauseMenu;
     private bool isPaused;
 
     private void Awake()
@@ -22,7 +22,7 @@ public class PauseMenu : MonoBehaviour
 
     public void Start()
     {
-        pauseMenu.gameObject.SetActive(false);
+        pauseMenu.SetActive(false);
     }
 
     void Update()
@@ -42,7 +42,7 @@ public class PauseMenu : MonoBehaviour
 
     public void PauseGame()
     {
-        pauseMenu.gameObject.SetActive(true);
+        pauseMenu.SetActive(true);
         Time.timeScale = 0;
         isPaused = true;
         
@@ -51,7 +51,7 @@ public class PauseMenu : MonoBehaviour
 
     public void ResumeGame()
     {
-        pauseMenu.gameObject.SetActive(false);
+        pauseMenu.SetActive(false);
         Time.timeScale = 1;
 
         AudioManager.instance.PlaySound("menuSelect");
