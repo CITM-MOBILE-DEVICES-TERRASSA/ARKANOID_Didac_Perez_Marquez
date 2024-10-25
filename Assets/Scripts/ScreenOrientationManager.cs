@@ -5,6 +5,7 @@ using UnityEngine;
 public class ScreenOrientationManager : MonoBehaviour
 {
     private Paddle paddle;
+    private Ball ball;
     public BlockGridGenerator blockGridGenerator;
     public GameObject[] borders;
 
@@ -16,6 +17,7 @@ public class ScreenOrientationManager : MonoBehaviour
         mainCamera = Camera.main;
         lastScreenSize = new Vector2(Screen.width, Screen.height);
         paddle = FindAnyObjectByType<Paddle>();
+        ball = FindAnyObjectByType<Ball>();
         AdjustLayout();
     }
 
@@ -31,12 +33,20 @@ public class ScreenOrientationManager : MonoBehaviour
     void AdjustLayout()
     {
         float aspectRatio = (float)Screen.width / (float)Screen.height;
-        AdjustPaddle(aspectRatio);
+        AdjustPaddle();
+        AdjustBall();
         AdjustBorders();
         AdjustBrickGrid();
     }
 
-    void AdjustPaddle(float aspectRatio)
+    void AdjustBall()
+    {
+        Vector3 ballPosition = ball.transform.position;
+        ballPosition.x = 0f;
+        ball.transform.position=ballPosition;
+    }
+
+    void AdjustPaddle()
     {
         Vector3 leftEdge = mainCamera.ViewportToWorldPoint(new Vector3(0, 0.5f, 0));
         Vector3 rightEdge = mainCamera.ViewportToWorldPoint(new Vector3(1, 0.5f, 0));

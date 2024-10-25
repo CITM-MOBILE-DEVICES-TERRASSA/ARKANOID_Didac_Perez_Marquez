@@ -9,15 +9,23 @@ public class Paddle : MonoBehaviour
     [Header("Paddle Settings")]
     public float minX = -7f;
     public float maxX = 7f;
+    public bool AiControlledPaddle=false;
+    private Ball ball;
 
     private void Start()
     {
         mainCamera = Camera.main;
+        ball = FindAnyObjectByType<Ball>();
     }
 
     private void Update()
     {
-        HandleMouseInput();
+        if(AiControlledPaddle){
+            AiPaddleMovement();
+        }
+        else{
+            HandleMouseInput();
+        }
     }
 
     private void HandleMouseInput()
@@ -56,5 +64,16 @@ public class Paddle : MonoBehaviour
         newXPosition = Mathf.Clamp(newXPosition, minX, maxX);
 
         transform.position = new Vector3(newXPosition, transform.position.y, transform.position.z);
+    }
+
+    public void AiPaddleMovement()
+    {
+        transform.position = new Vector3(ball.transform.position.x, transform.position.y, transform.position.z);
+    }
+
+    public void ChangeMovementType()
+    {
+        AiControlledPaddle=!AiControlledPaddle;
+        AudioManager.instance.PlaySound("menuSelect");
     }
 }
